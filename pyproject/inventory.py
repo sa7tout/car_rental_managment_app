@@ -2,6 +2,8 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from PIL import Image, ImageTk
 import mysql.connector
+import os
+import customtkinter as ctk
 
 class DatabaseManager:
     def __init__(self, host, user, password, database):
@@ -47,8 +49,12 @@ class DatabaseManager:
 
         return cars
 
-
 class CarInventory:
+
+    def open_car_fill(self):
+        self.master.destroy()
+        os.system('python car_fill.py')
+
     def __init__(self, master):
         self.master = master
         master.title("Car Inventory")
@@ -82,6 +88,11 @@ class CarInventory:
 
         self.search_entry = ttk.Entry(self.search_frame, width=40, font=("bold", 14))
         self.search_button = ttk.Button(self.search_frame, text="Search", style="TButton",command=self.search_cars)
+
+
+        self.add_car_button = ctk.CTkButton(master, text="Add Car", width=100,command=self.open_car_fill,hover_color="#8B74BD",fg_color="#663399")
+        self.add_car_button.pack(pady=20, padx=(10, 0), side=tk.TOP)
+
 
         # Pack the widgets horizontally in the search frame
         self.search_entry.pack(side=tk.LEFT, padx=5, pady=1)
